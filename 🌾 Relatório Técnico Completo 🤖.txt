@@ -1,104 +1,0 @@
-?? Relatório Técnico Completo ??
-Sistema de Classificação de Grãos de Trigo Usando Machine Learning
-Metodologia CRISP-DM Aplicada
-Por: Engenheiro de Dados Sênior (40+ anos de experiência)
-1. Entendimento do Negócio ??
-* PROBLEMA: Cooperativas agrícolas de pequeno porte realizam classificação manual de grãos, um processo demorado e sujeito a erros humanos.
-* OBJETIVO: Desenvolver um sistema automatizado de classificação de variedades de trigo usando aprendizado de máquina para aumentar a eficiência e a precisão.
-* METODOLOGIA: Aplicação completa da metodologia CRISP-DM, com implementação de 5 algoritmos de classificação e otimização de hiperparâmetros.
-2. Entendimento dos Dados ??
-* DATASET: Seeds Dataset (UCI Machine Learning Repository)
-o ?? 210 amostras de grãos de trigo
-o ?? 3 variedades: Kama, Rosa, Canadian (70 amostras cada)
-o ?? 7 características físicas por grão
-o ?? Dataset perfeitamente balanceado
-o ? Sem valores ausentes
-* CARACTERÍSTICAS MEDIDAS:
-1. Área: Medida da área do grão
-2. Perímetro: Comprimento do contorno
-3. Compacidade: 4*?*área/perímetro²
-4. Comprimento do Núcleo: Eixo principal da elipse equivalente
-5. Largura do Núcleo: Eixo secundário da elipse
-6. Coeficiente de Assimetria: Medida da assimetria
-7. Comprimento do Sulco: Comprimento do sulco central
-3. Preparação dos Dados ??
-* PRÉ-PROCESSAMENTO APLICADO:
-o ? Verificação de valores ausentes (0% encontrados)
-o ?? Análise de distribuições e outliers
-o ?? Padronização com StandardScaler (diferentes escalas identificadas)
-o ??? Divisão estratificada: 70% treino, 30% teste
-* CORRELAÇÕES IMPORTANTES:
-o Área vs Perímetro: r = 0.994 (muito forte)
-o Comprimento_Nucleo vs Comprimento_Sulco: r = 0.933
-o Área vs Largura_Nucleo: r = 0.971
-4. Modelagem ??
-* ALGORITMOS IMPLEMENTADOS:
-1. K-Nearest Neighbors (KNN)
-2. Support Vector Machine (SVM)
-3. Random Forest
-4. Naive Bayes
-5. Logistic Regression
-* RESULTADOS INICIAIS:
-AlgoritmoAcuráciaPrecisãoRecallF1-ScoreRandom Forest92.06%92.39%92.06%91.92%KNN87.30%87.21%87.30%87.13%SVM87.30%87.21%87.30%87.13%Logistic Regression85.71%85.71%85.71%85.43%Naive Bayes82.54%83.39%82.54%82.51%Melhor Modelo Inicial: ?? Random Forest (92.06% de acurácia)
-5. Otimização ?
-* OTIMIZAÇÃO POR GRID SEARCH:
-o KNN - Melhores parâmetros: n_neighbors: 3, weights: 'uniform', metric: 'manhattan'
-* ?? Melhoria: +1.59% (88.89% final)
-o SVM - Melhores parâmetros: C: 100, gamma: 'scale', kernel: 'linear'
-* ?? Melhoria: +1.59% (88.89% final)
-o Random Forest - Melhores parâmetros: n_estimators: 100, max_depth: 10, min_samples_split: 5, min_samples_leaf: 2
-* ?? Resultado: 87.30% (degradação de -4.76%)
-Conclusão da Otimização: O Random Forest original já estava bem ajustado. KNN e SVM se beneficiaram significativamente da otimização.
-6. Avaliação e Interpretação ??
-* IMPORTÂNCIA DAS CARACTERÍSTICAS (Random Forest):
-1. Área: 22.5%
-2. Perímetro: 21.8%
-3. Comprimento do Sulco: 16.7%
-4. Largura do Núcleo: 16.6%
-5. Comprimento do Núcleo: 11.6%
-6. Coeficiente de Assimetria: 6.1%
-7. Compacidade: 4.7%
-* DESEMPENHO POR CLASSE (Random Forest):
-o Rosa: Precision 95%, Recall 95% (melhor classificação)
-o Canadian: Precision 88%, Recall 100% (todas identificadas)
-o Kama: Precision 94%, Recall 81% (maior confusão)
-* INSIGHTS DE SEPARABILIDADE:
-o Características de tamanho (Área, Perímetro) são os principais diferenciadores.
-o A forma do grão (Comprimento do Sulco) também é muito importante.
-o Assimetria e Compacidade têm menor poder discriminativo.
-7. Implementação e Recomendações ??
-* RECOMENDAÇÕES TÉCNICAS:
-1. Usar Random Forest como algoritmo principal.
-2. Implementar um sistema de confiança nas predições.
-3. Estabelecer um pipeline de retreinamento automático.
-4. Monitorar deriva de dados (data drift).
-* RECOMENDAÇÕES DE NEGÓCIO:
-1. Focar na medição precisa das 3 características principais.
-2. Implementar um sistema de validação por especialista para casos duvidosos.
-3. Estabelecer um protocolo de calibração dos equipamentos de medição.
-4. Treinar operadores para o uso correto do sistema.
-* SIMPLIFICAÇÃO POSSÍVEL: As 3 características principais capturam 61% do poder preditivo. É possível reduzir para 4-5 características sem perda significativa de performance.
-* CUSTO-BENEFÍCIO: ROI esperado alto devido à automação, redução de tempo e de erros.
-8. Próximos Passos ???
-* CURTO PRAZO (1-3 meses): * Coletar mais dados, desenvolver UI, implementar logging.
-* MÉDIO PRAZO (3-6 meses): * Testar em produção, ajustar modelo, estabelecer procedimentos.
-* LONGO PRAZO (6+ meses): * Expandir para outras variedades, testar deep learning, integrar com sistemas existentes.
-9. Conclusão ??
-O sistema desenvolvido demonstra alta viabilidade técnica e comercial. Com 92% de acurácia, o modelo Random Forest supera significativamente a variabilidade da classificação manual.
-A implementação deste sistema pode revolucionar o processo de classificação, proporcionando:
-* ? Maior eficiência operacional
-* ? Redução de erros humanos
-* ? Padronização de critérios
-* ? Melhor rastreabilidade
-10. Anexos Técnicos ??
-* ARQUIVOS GERADOS:
-o 01_distribuicoes_caracteristicas.png
-o 02_boxplots_por_classe.png
-o 03_matriz_correlacao.png
-o 04_scatter_plots.png
-o 05_comparacao_algoritmos.png
-o 06_matrizes_confusao.png
-o 07_comparacao_otimizacao.png
-o 08_importancia_caracteristicas.png
-* CÓDIGO FONTE: Disponível no notebook Jupyter com a implementação completa.
-
